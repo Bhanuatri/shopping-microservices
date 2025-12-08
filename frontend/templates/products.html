@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Products</h2>
+    <div id="list"></div>
+    <br>
+    <a href="/payment"><button>Go to Checkout</button></a>
+
+    <script>
+        // CHANGE 'localhost' TO YOUR EC2 PUBLIC IP
+        const PRODUCT_URL = "http://98.92.124.126:5002";
+
+        fetch(`${PRODUCT_URL}/products`)
+            .then(res => res.json())
+            .then(data => {
+                let html = "";
+                data.forEach(p => {
+                    html += `<p>${p.name} - $${p.price}</p>`;
+                });
+                document.getElementById('list').innerHTML = html;
+            });
+    </script>
+</body>
+</html>

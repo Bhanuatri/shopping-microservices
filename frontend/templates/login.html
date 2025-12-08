@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h2>Login (admin/admin123)</h2>
-    <input type="text" id="username" placeholder="Username">
+    <h2>Login</h2> <input type="text" id="username" placeholder="Username">
     <input type="password" id="password" placeholder="Password">
     <button onclick="login()">Login</button>
-
-    <script>
+    <p id="error-message" style="color: red;"></p> <script>
         // CHANGE 'localhost' TO YOUR EC2 PUBLIC IP
-        const AUTH_URL = "http://98.92.124.126:5001"; 
+        const AUTH_URL = "http://localhost:5001"; 
 
         async function login() {
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
+            const errorMessageElement = document.getElementById('error-message');
             
+            // Clear previous errors
+            errorMessageElement.innerText = "";
+
             const response = await fetch(`${AUTH_URL}/login`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -23,7 +25,8 @@
             if (response.ok) {
                 window.location.href = "/products";
             } else {
-                alert("Login Failed");
+                // Show a generic error message, fulfilling your requirement
+                errorMessageElement.innerText = "Error: Invalid username or password.";
             }
         }
     </script>
